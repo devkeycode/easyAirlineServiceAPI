@@ -5,6 +5,9 @@
 const jwt = require("jsonwebtoken");
 const authConfig = require("../configs/auth.config");
 
+const User = require("../models/user.model");
+const { userTypes } = require("../utils/constants");
+
 const verifyToken = (req, res, next) => {
   const token = req.headers["x-access-token"];
   //check token is passed with the request or not
@@ -31,6 +34,30 @@ const verifyToken = (req, res, next) => {
   });
 };
 
+//to validate the given userType is admin or not
+const isAdmin = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      userId: req.userId,
+      userType: userTypes.admin,
+    });
+    if (!user) {
+      //access not allowed as not admin
+      return res.status(403).json({
+        message:
+          "No access allowed to the user for this requested endpoint. ADMIN only allowed.",
+      });
+    }
+    //pass the control
+    next();
+  } catch (error) {
+    console.error("Internal server error", error.message);
+    return res.status(500).json({
+      message: "Internal server error while fetching the data. ",
+    });
+  }
+};
 module.exports = {
   verifyToken,
+  isAdmin,
 };

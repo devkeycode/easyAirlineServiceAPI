@@ -11,6 +11,8 @@ const airlineScehma = new mongoose.Schema(
     },
     website: {
       type: String,
+      unique: true,
+      trim: true,
     },
   },
   { timestamps: true }

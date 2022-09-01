@@ -8,4 +8,4 @@ const trimValuesInRequestBody = (req) => {
   }
 };
 
-module.exports = trimValuesInRequestBody;
+module.exports = { trimValuesInRequestBody };

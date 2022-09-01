@@ -1,12 +1,20 @@
 const {
   validateSignInRequestBody,
   validateSignUpRequestBody,
+  validateAirlineRequestBody,
+  validateAirlineUpdateRequestBody,
 } = require("./validateRequestBody");
 
-const { verifyToken } = require("./auth.jwt");
+const { isValidAirlineIdInReqParam } = require("./validateRequestParam");
+
+const { verifyToken, isAdmin } = require("./auth.jwt");
 
 module.exports = {
+  verifyToken,
+  isAdmin,
   validateSignInRequestBody,
   validateSignUpRequestBody,
-  verifyToken,
+  validateAirlineRequestBody,
+  validateAirlineUpdateRequestBody,
+  isValidAirlineIdInReqParam,
 };

@@ -12,31 +12,26 @@ exports.validateSignUpRequestBody = async (req, res, next) => {
   const { name, email, password, userId, userType } = req.body;
   if (!name) {
     return res.status(400).json({
-      success: false,
       message: "Name is required field and is not provided.",
     });
   }
   if (!email) {
     return res.status(400).json({
-      success: false,
       message: "Email is required field and is not provided.",
     });
   }
   if (!password) {
     return res.status(400).json({
-      success: false,
       message: "Password is required field and is not provided.",
     });
   }
   if (!userId) {
     return res.status(400).json({
-      success: false,
       message: "UserId is required field and is not provided.",
     });
   }
   if (!isValidEmail(email)) {
     return res.status(400).json({
-      success: false,
       message: "Email provided is invalid.",
     });
   }
@@ -46,12 +41,10 @@ exports.validateSignUpRequestBody = async (req, res, next) => {
 
   if (isAvailableToTake instanceof Error) {
     return res.status(500).json({
-      success: false,
       message: "Internal server error while validating the request",
     });
   } else if (isAvailableToTake == false) {
     return res.status(400).json({
-      success: false,
       message: "Email is already taken.",
     });
   }
@@ -60,12 +53,10 @@ exports.validateSignUpRequestBody = async (req, res, next) => {
   isAvailableToTake = await isValueUnique(User, { userId });
   if (isAvailableToTake instanceof Error) {
     return res.status(500).json({
-      success: false,
       message: "Internal server error while validating the request",
     });
   } else if (isAvailableToTake == false) {
     return res.status(400).json({
-      success: false,
       message: "User Id is already taken.",
     });
   }
@@ -75,7 +66,6 @@ exports.validateSignUpRequestBody = async (req, res, next) => {
 
     if (userType !== userTypes.customer) {
       return res.status(400).json({
-        success: false,
         message:
           "User registration as CUSTOMER userType only allowed.No other registration allowed.",
       });
