@@ -5,4 +5,9 @@ module.exports = {
     customer: "CUSTOMER",
     admin: "ADMIN",
   },
+  bookingStatuses: {
+    inprocess: "IN_PROCESS",
+    confirmed: "CONFIRMED",
+    cancelled: "CANCELLED",
+  },
 };
