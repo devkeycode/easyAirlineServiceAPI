@@ -49,6 +49,7 @@ async function init() {
 //routes middlewares, connect route to server by passing app object,so routes attached to the server
 require("./routes/auth.route")(app);
 require("./routes/airline.route")(app);
+require("./routes/flight.route")(app);
 
 //for testing(to be deleted) verifyToken (protected route)
 app.use("/protectedResource", [verifyToken], (req, res) => {

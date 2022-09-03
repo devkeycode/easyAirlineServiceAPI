@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const flightSchema = new mongoose.Schema(
   {
     flightNumber: {
-      type: String, //flightNumber  is a unique alphanumeric,(generally forming by taking initial letters from airline,(flight belongs to followed by incremental number))
+      type: String, //flightNumber  is a unique alphanumeric,(generally forming by taking initial letters from airline,(flight belongs to followed by incremental number),but its not manadatory to keep the name like that)
       required: true,
       unique: true,
     },
