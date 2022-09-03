@@ -78,7 +78,7 @@ exports.findAllFlights = async (req, res) => {
     //skip(10).limit(10)
     //multiplying by 1 to convert it into num in js
     const page = req.query.page * 1 || 1;
-    const limitDocsPerPage = req.query.limit * 1 || 100;
+    const limitDocsPerPage = req.query.limit * 1 || 10;
     const skippedDocs = (page - 1) * limitDocsPerPage;
     query = query.skip(skippedDocs).limit(limitDocsPerPage);
 
