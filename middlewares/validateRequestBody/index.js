@@ -8,6 +8,10 @@ const {
   validateFlightRequestBody,
   validateFlightUpdateRequestBody,
 } = require("./flightRequest");
+const {
+  validateBookingRequestBody,
+  validateBookingUpdateRequestBody,
+} = require("./bookingRequest");
 
 module.exports = {
   validateSignInRequestBody,
@@ -16,4 +20,6 @@ module.exports = {
   validateAirlineUpdateRequestBody,
   validateFlightRequestBody,
   validateFlightUpdateRequestBody,
+  validateBookingRequestBody,
+  validateBookingUpdateRequestBody,
 };

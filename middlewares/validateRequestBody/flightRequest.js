@@ -18,11 +18,17 @@ exports.validateFlightRequestBody = async (req, res, next) => {
     price,
     duration,
     airline,
+    flightDate,
   } = req.body;
   if (!flightNumber) {
     return res
       .status(400)
       .json({ message: "FlightNumber is required field and not provided." });
+  }
+  if (!flightDate) {
+    return res
+      .status(400)
+      .json({ message: "FlightDate is required field and not provided." });
   }
   if (!departureAirport) {
     return res.status(400).json({
@@ -98,6 +104,7 @@ exports.validateFlightUpdateRequestBody = async (req, res, next) => {
     arrivalTime,
     duration,
     price,
+    flightDate,
   } = req.body;
 
   if (departureAirport == "") {
@@ -123,6 +130,11 @@ exports.validateFlightUpdateRequestBody = async (req, res, next) => {
   if (price == "") {
     return res.status(400).json({
       message: "price can't be empty field.",
+    });
+  }
+  if (flightDate == "") {
+    return res.status(400).json({
+      message: "flightDate can't be empty field.",
     });
   }
   if (duration == "") {

@@ -57,7 +57,32 @@ const isAdmin = async (req, res, next) => {
     });
   }
 };
+
+const isAdminOrBookingOwner = async (req, res, next) => {
+  try {
+    const signedInUser = await User.findOne({ userId: req.userId });
+    if (signedInUser.userType == userTypes.admin) {
+      req.isAdmin = true;
+    }
+    if (req.isAdmin || String(req.booking.user) == String(signedInUser._id)) {
+      //in this case only pass next
+      next();
+    } else {
+      //not a valid user to access this endpoint
+      return res.status(403).json({
+        message:
+          "No access allowed to the user for this requested endpoint.ADMIN or Owner only allowed.",
+      });
+    }
+  } catch (error) {
+    console.error("Internal server error", error.message);
+    return res.status(500).json({
+      message: "Internal server error while fetching the data. ",
+    });
+  }
+};
 module.exports = {
   verifyToken,
   isAdmin,
+  isAdminOrBookingOwner,
 };

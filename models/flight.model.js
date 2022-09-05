@@ -27,7 +27,7 @@ const flightSchema = new mongoose.Schema(
     },
     flightDate: {
       type: Date,
-      default: Date.now,
+      required: true,
     },
     departureTime: {
       type: String, //departureTime a plain string 24hrs format like 11:00

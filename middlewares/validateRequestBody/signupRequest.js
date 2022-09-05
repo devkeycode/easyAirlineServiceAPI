@@ -3,7 +3,7 @@
 const User = require("../../models/user.model");
 const { userTypes } = require("../../utils/constants");
 
-const trimValuesInRequestBody = require("../../utils/trimRequestBody");
+const { trimValuesInRequestBody } = require("../../utils/trimRequestBody");
 const { isValueUnique } = require("../../utils/checkUniqueValueInModelDoc");
 
 exports.validateSignUpRequestBody = async (req, res, next) => {

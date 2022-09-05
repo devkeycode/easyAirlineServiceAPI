@@ -50,6 +50,7 @@ async function init() {
 require("./routes/auth.route")(app);
 require("./routes/airline.route")(app);
 require("./routes/flight.route")(app);
+require("./routes/booking.route")(app);
 
 //for testing(to be deleted) verifyToken (protected route)
 app.use("/protectedResource", [verifyToken], (req, res) => {

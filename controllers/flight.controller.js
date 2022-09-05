@@ -51,10 +51,12 @@ exports.findAllFlights = async (req, res) => {
   if (req.query) {
     queryObject = addOptionalQueries(req.query);
   }
+  console.log(queryObject);
   try {
     //form query
     let query = Flight.find(queryObject);
     //sorting(if queried in the request,otherwise bydefault sort based on createdAt desc order)
+
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
       //example ?sort=price,-duration=> sort('price -duration') sort //price in asc order,duration in desc order
@@ -183,6 +185,7 @@ function updateFlightObject(req) {
 
 function addOptionalQueries(queries) {
   const queryObject = { ...queries };
+
   const excludedFields = ["page", "sort", "limit", "fields"]; //will exclude this queries form queryobject, will add it later(if queried)
   excludedFields.forEach((element) => {
     delete queryObject[element];
