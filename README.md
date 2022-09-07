@@ -735,7 +735,7 @@ Sample Response Body:{
 
 ```
 
-#### 18. A User  can update the booking details.(Booking Owner can only cancel the booking, but admin user can change the booking status to any valid value and also admin user can change the flight of the user,in case of any emergency.)
+#### 19. A User  can update the booking details.(Booking Owner can only cancel the booking, but admin user can change the booking status to any valid value and also admin user can change the flight of the user,in case of any emergency.)
 
 ---
 
@@ -768,7 +768,7 @@ Sample Response Body:
 
 ```
 
-#### 19. A User and admin user (for the specific user booking)  can get the boarding pass , provided the booking status is confirmed.
+#### 20. A User and admin user (for the specific user booking)  can get the boarding pass , provided the booking status is confirmed.
 
 ---
 
@@ -805,7 +805,7 @@ Sample Response Body:
 
 ```
 
-#### 20. Any request of anytype on invalid endpoint , that doesnt exists, will send response status 404 NOTFOUND with proper response message
+#### 21. Any request of anytype on invalid endpoint , that doesnt exists, will send response status 404 NOTFOUND with proper response message
 
 ---
 
