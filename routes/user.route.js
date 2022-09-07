@@ -12,6 +12,7 @@ const {
   isAdmin,
   isAdminOrOwner,
   isValidUserIdInReqParam,
+  validateUserUpdateRequestBody,
 } = require("../middlewares");
 
 module.exports = (app) => {
@@ -28,7 +29,12 @@ module.exports = (app) => {
   //update user
   app.put(
     "/airlineService/api/v1/users/:id",
-    [verifyToken, isValidUserIdInReqParam, isAdminOrOwner],
+    [
+      verifyToken,
+      isValidUserIdInReqParam,
+      isAdminOrOwner,
+      validateUserUpdateRequestBody,
+    ],
     updateUser
   );
 

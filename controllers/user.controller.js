@@ -63,7 +63,10 @@ exports.updateUser = async (req, res) => {
     await req.user.save();
     return res
       .status(200)
-      .json({ data: req.user, message: "User updated successfully." });
+      .json({
+        data: filterUserResponse(req.user),
+        message: "User updated successfully.",
+      });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({

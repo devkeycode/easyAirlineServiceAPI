@@ -4,11 +4,11 @@ const { bookingStatuses } = require("../utils/constants");
 const { filterBookingResponseData } = require("../utils/filterResponses");
 exports.createBooking = async (req, res) => {
   const bookingObj = {
-    flight: req.body.flight,
+    flight: req.flightId,
   };
   //check if user is admin,then pass the req.body userid else take the signedinuserid
   if (req.isAdmin) {
-    bookingObj.user = req.body.user; //admin do the booking for the user on behalf of user
+    bookingObj.user = req.userIdPassedByAdmin; //admin do the booking for the user on behalf of user
     bookingObj.status =
       req.body.status !== undefined
         ? req.body.status
@@ -61,7 +61,7 @@ exports.updateBooking = async (req, res) => {
     req.booking.status =
       req.body.status !== undefined ? req.body.status : req.booking.status;
     req.booking.flight =
-      req.body.flight !== undefined ? req.body.flight : req.booking.flight;
+      req.body.flight !== undefined ? req.flightId : req.booking.flight;
     await req.booking.save(); //save in db
     return res
       .status(200)

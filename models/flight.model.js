@@ -31,9 +31,11 @@ const flightSchema = new mongoose.Schema(
     },
     departureTime: {
       type: String, //departureTime a plain string 24hrs format like 11:00
+      required: true,
     },
     arrivalTime: {
       type: String, //arrivalTime a plain string 24hrs format like 24:00
+      required: true,
     },
     price: {
       type: Number,

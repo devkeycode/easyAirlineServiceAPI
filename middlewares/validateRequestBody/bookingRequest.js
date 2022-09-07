@@ -14,6 +14,15 @@ exports.validateBookingRequestBody = async (req, res, next) => {
     });
   }
 
+  //get flight details
+  const flightDetail = await Flight.findOne({ flightNumber: flight });
+  if (flightDetail == null) {
+    return res.status(400).json({
+      message: "Flight (flightNumber) is  not valid.",
+    });
+  }
+  //valid flightDetail
+  req.flightId = flightDetail._id;
   //get the signed in user
   const signedInUser = await User.findOne({ userId: req.userId });
   req.signedInUserId = signedInUser._id;
@@ -50,27 +59,20 @@ exports.validateBookingRequestBody = async (req, res, next) => {
     } else {
       //means the signedInuser is the admin
       //so ensure admin passing a valid userId in user
-      if (!isValidObjectId(user)) {
-        return res.status(400).json({
-          message: "Not a valid user(userId)",
-        });
-      }
-      const userPassedByAdmin = await User.findOne({ _id: user });
+      // if (!isValidObjectId(user)) {
+      //   return res.status(400).json({
+      //     message: "Not a valid user(userId)",
+      //   });
+      // }
+      const userPassedByAdmin = await User.findOne({ userId: user });
       if (userPassedByAdmin == null) {
         return res.status(400).json({
           message: "Not a valid user(userId)",
         });
       }
+      //othewrise its a valid user
+      req.userIdPassedByAdmin = userPassedByAdmin._id;
     }
-  }
-  //ensure flight is valid object id
-  if (!isValidObjectId(flight)) {
-    return res.status(400).json({ message: "Not a valid flight id." });
-  }
-
-  const flightObj = await Flight.findOne({ _id: flight });
-  if (flightObj == null) {
-    return res.status(400).json({ message: "Not a valid flight id." });
   }
 
   //all validation passed
@@ -117,14 +119,16 @@ exports.validateBookingUpdateRequestBody = async (req, res, next) => {
         message: "Only ADMIN can update the flight.",
       });
     }
-    //ensure flight is valid object id
-    if (!isValidObjectId(flight)) {
-      return res.status(400).json({ message: "Not a valid flight id." });
+
+    //get flight details
+    const flightDetail = await Flight.findOne({ flightNumber: flight });
+    if (flightDetail == null) {
+      return res.status(400).json({
+        message: "Flight (flightNumber) is  not valid.",
+      });
     }
-    const flightObj = await Flight.findOne({ _id: req.body.flight });
-    if (flightObj == null) {
-      return res.status(400).json({ message: "Not a valid flight id." });
-    }
+    //valid flightDetail
+    req.flightId = flightDetail._id;
   }
 
   //all validation passed

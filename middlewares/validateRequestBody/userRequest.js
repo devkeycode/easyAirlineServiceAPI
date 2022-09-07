@@ -3,7 +3,7 @@
 const User = require("../../models/user.model");
 const { userTypes } = require("../../utils/constants");
 const { trimValuesInRequestBody } = require("../../utils/trimRequestBody");
-
+const { isValueUnique } = require("../../utils/checkUniqueValueInModelDoc");
 exports.validateUserUpdateRequestBody = async (req, res, next) => {
   trimValuesInRequestBody(req); //to remove unwanted spaces
   //User REQUEST BODY required properties{name,email,password,userId}
@@ -78,3 +78,15 @@ exports.validateUserUpdateRequestBody = async (req, res, next) => {
   //if all the validation passed on request body , pass the control to next function in pipeline
   next();
 };
+
+/**
+ *
+ * @param {String} email
+ * @returns {Boolean} true or false
+ * @Description To check email is in valid email format or not
+ */
+
+function isValidEmail(email) {
+  const regExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return regExp.test(email);
+}
