@@ -6,6 +6,7 @@ const {
   findBookingById,
   findAllBookings,
   deleteBooking,
+  getBoardingPass,
 } = require("../controllers/booking.controller");
 
 const {
@@ -34,6 +35,12 @@ module.exports = (app) => {
     "/airlineService/api/v1/bookings/:id",
     [verifyToken, isValidBookingIdInReqParam, isAdminOrBookingOwner],
     findBookingById
+  );
+
+  app.get(
+    "/airlineService/api/v1/bookings/:id/boardingPass",
+    [verifyToken, isValidBookingIdInReqParam, isAdminOrBookingOwner],
+    getBoardingPass
   );
 
   app.put(

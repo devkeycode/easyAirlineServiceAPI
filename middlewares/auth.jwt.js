@@ -81,8 +81,38 @@ const isAdminOrBookingOwner = async (req, res, next) => {
     });
   }
 };
+
+//to validate given user is Admin(all access) or Owner(userId belongs to the user only, so able to access)
+//user.userType==="ADMIN" -> for admin user
+//user.userId === req.userId;-> for owner user
+const isAdminOrOwner = async (req, res, next) => {
+  try {
+    const signedInUser = await User.findOne({
+      userId: req.userId,
+    });
+    if (
+      signedInUser &&
+      (signedInUser.userType === userTypes.admin ||
+        signedInUser.userId === req.params.id)
+    ) {
+      next(); //pass the control
+    } else {
+      //not a valid user to access this endpoint
+      return res.status(403).json({
+        message:
+          "No access allowed to the user for this requested endpoint.ADMIN or Owner only allowed.",
+      });
+    }
+  } catch (error) {
+    console.error("Internal server error", error.message);
+    return res.status(500).json({
+      message: "Internal server error while fetching the data. ",
+    });
+  }
+};
 module.exports = {
   verifyToken,
   isAdmin,
   isAdminOrBookingOwner,
+  isAdminOrOwner,
 };

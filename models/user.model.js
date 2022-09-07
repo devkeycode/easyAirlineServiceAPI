@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
       enum: [userTypes.admin, userTypes.customer],
     },
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("User", userSchema);

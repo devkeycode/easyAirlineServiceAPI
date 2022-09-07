@@ -51,11 +51,7 @@ require("./routes/auth.route")(app);
 require("./routes/airline.route")(app);
 require("./routes/flight.route")(app);
 require("./routes/booking.route")(app);
-
-//for testing(to be deleted) verifyToken (protected route)
-app.use("/protectedResource", [verifyToken], (req, res) => {
-  res.send("Verification passed.Access granted");
-});
+require("./routes/user.route")(app);
 
 //in case of endpoint didn't exist, send the 404 response
 app.use((req, res) => {

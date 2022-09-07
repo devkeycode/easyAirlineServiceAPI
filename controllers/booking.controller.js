@@ -1,6 +1,7 @@
 //this file contains the logic for handling the CRUD operations on Booking resource
 const Booking = require("../models/booking.model");
 const { bookingStatuses } = require("../utils/constants");
+const { filterBookingResponseData } = require("../utils/filterResponses");
 exports.createBooking = async (req, res) => {
   const bookingObj = {
     flight: req.body.flight,
@@ -83,4 +84,18 @@ exports.deleteBooking = async (req, res) => {
       message: "Internal server error.",
     });
   }
+};
+
+exports.getBoardingPass = async (req, res) => {
+  if (req.booking.status !== bookingStatuses.confirmed) {
+    return res.status(400).json({
+      message: `Booking not yet confirmed.Wait for sometime or contact admin(in case,status not updated.Current Booking status - ${req.booking.status}`,
+    });
+  }
+  const data = await Booking.find({ _id: req.params.id }).populate(
+    "user flight"
+  );
+  return res
+    .status(200)
+    .json({ data: await filterBookingResponseData(data[0]) });
 };
